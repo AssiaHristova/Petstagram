@@ -1,0 +1,29 @@
+{% extends 'shared/base.html' %}
+{% load static %}
+{% block content %}
+
+    <div class="container">
+        <h1 class='text-center'>All pet photos</h1>
+        <div class="row">
+            {% for pet in pet_list %}
+            <div class="col-lg-4">
+                <div class="card" style="width: 18rem;">
+                    {% if pet.image %}
+                        <img src="{{ pet.image.url }}" class="card-img-top" alt="{{ pet.description }}">
+                    {% else %}
+                        <img src="{% static 'images/random_pet.webp' %}" class="card-img-top" alt="{{ pet.description }}">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ pet.type }} {{ pet.name }}, Age: {{ pet.age }}</h5>
+                        <p class="card-text">{{ pet.description }}</p>
+                        <a href="{% url "pet details" pet.id %}" class="btn btn-primary">See details</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}
+
+
